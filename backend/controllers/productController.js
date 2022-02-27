@@ -17,7 +17,7 @@ exports.newProduct = catchAsyncError(async (req, res, next) => {
 
 // Get all products => /api/v1/products?keyword=apple&category=Laptops
 exports.getProducts = catchAsyncError(async (req, res, next) => {
-  const resPerPage = 8;
+  const resPerPage = 4;
   const productsCount = await Product.countDocuments();
 
   const apiFeatures = new APIFeatures(Product.find(), req.query)
@@ -25,13 +25,18 @@ exports.getProducts = catchAsyncError(async (req, res, next) => {
     .filter()
     .pagination(resPerPage);
 
-  const products = await apiFeatures.query;
+  let products = await apiFeatures.query;
+  let filteredProductsCount = products.length;
+
+  // apiFeatures.pagination(resPerPage);
+  // products = await apiFeatures.query;
 
   res.status(200).json({
     success: true,
     count: products.length,
     resPerPage,
     productsCount,
+    filteredProductsCount,
     products,
   });
 });
