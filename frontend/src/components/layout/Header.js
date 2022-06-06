@@ -3,12 +3,12 @@ import { Link, Route } from "react-router-dom";
 import Search from "./Search";
 import "../../App.css";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 // import { userAlert } from "react-alert";
 
 function Header() {
   // const alert = userAlert();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const { user, loading } = useSelector((state) => state.auth);
   return (
